@@ -1,0 +1,43 @@
+﻿<Window x:Class="asdfg_v2.Window_Crews"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:asdfg_v2"
+        mc:Ignorable="d"
+        Title="Команды" Height="600" Width="850" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:airportDataSet x:Key="airportDataSet"/>
+        <CollectionViewSource x:Key="view_CrewsViewSource" Source="{Binding View_Crews, Source={StaticResource airportDataSet}}"/>
+        <CollectionViewSource x:Key="рейсыViewSource" Source="{Binding Рейсы, Source={StaticResource airportDataSet}}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource view_CrewsViewSource}">
+        <DataGrid x:Name="view_CrewsDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="20,10" RowDetailsVisibilityMode="VisibleWhenSelected" Height="338" VerticalAlignment="Top" Width="625" HorizontalAlignment="Left" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="iD_crewColumn" Binding="{Binding ID_crew}" Header="Команда" MinWidth="5"/>
+                <DataGridTextColumn x:Name="employee_nameColumn" Binding="{Binding employee_name}" Header="Имя" MinWidth="20"/>
+                <DataGridTextColumn x:Name="position_nameColumn" Binding="{Binding position_name}" Header="Должность" MinWidth="20"/>
+                <DataGridTextColumn x:Name="place_fromColumn" Binding="{Binding place_from}" Header="Откуда" MinWidth="50"/>
+                <DataGridTextColumn x:Name="place_toColumn" Binding="{Binding place_to}" Header="Куда" MinWidth="50"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="рейсыDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource рейсыViewSource}}" Margin="20,359,0,10" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalAlignment="Left" Width="625" Height="200" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="командаColumn" Binding="{Binding Команда}" Header="Команда" MinWidth="50"/>
+                <DataGridTextColumn x:Name="откудаColumn" Binding="{Binding Откуда}" Header="Откуда" MinWidth="50"/>
+                <DataGridTextColumn x:Name="кудаColumn" Binding="{Binding Куда}" Header="Куда" MinWidth="50"/>
+                <DataGridTemplateColumn x:Name="датаColumn" Header="Дата" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Дата, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="времяColumn" Binding="{Binding Время}" Header="Время" MinWidth="50"/>
+                <DataGridTextColumn x:Name="самолетColumn" Binding="{Binding Самолет}" Header="Самолет" MinWidth="50"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="ExitButton" Content="Выйти" Margin="650,100,10,0" Width="150" Height="50" VerticalAlignment="Top" Click="ExitButton_Click"/>
+
+    </Grid>
+</Window>
