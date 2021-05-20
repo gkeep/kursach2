@@ -73,39 +73,30 @@ namespace asdfg_v2
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            //foreach (DataRowView drv in dataGrid.)
+        {        
+            //foreach (DataRow row in mainTable.Rows)
             //{
-            //    //DataRow row = dgr.Item[0].ToString();
-            //    //table.Rows.Add(
-            //    //    row.Row.ItemArray[0].ToString(),
-            //    //    row.Row.ItemArray[1].ToString(),
-            //    //    row.Row.ItemArray[2].ToString(),
-            //    //    row.Row.ItemArray[3].ToString()
-            //    //);
-            //    //Console.WriteLine(row.ItemArray[0].ToString());
-            //    Console.WriteLine(drv.Row.ItemArray[0].ToString());
+            //    Console.WriteLine(row.ItemArray[0].ToString());
             //}
 
-            
-            foreach (DataRow row in mainTable.Rows)
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
-                Console.WriteLine(row.ItemArray[0].ToString());
-            }
+                // TODO: Do not use View or find another way to update the DB
+                // View or function 'Самолеты' is not updatable because the modification affects multiple base tables.
+                connection.Open();
+                try
+                {
+                    SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.TableLock | SqlBulkCopyOptions.FireTriggers | SqlBulkCopyOptions.UseInternalTransaction, null);
+                    bulkCopy.DestinationTableName = "[Самолеты]";
+                    bulkCopy.WriteToServer(mainTable);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("[ERROR] Couldn't save changes to SQL DB");
+                }
 
-            //using (SqlConnection connection = new SqlConnection(ConnectionString))
-            //{
-            //    try
-            //    {
-            //        SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.TableLock | SqlBulkCopyOptions.FireTriggers | SqlBulkCopyOptions.UseInternalTransaction, null);
-            //        bulkCopy.DestinationTableName = "[Самолеты]";
-            //        bulkCopy.WriteToServer(mainTable);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Console.WriteLine("[ERROR] Couldn't save changes to SQL DB");
-            //    }
-            //}
+                connection.Close();
+            }
         }
     }
 }
