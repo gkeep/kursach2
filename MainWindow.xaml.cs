@@ -41,32 +41,57 @@ namespace asdfg_v2
             username = "Горячев Владимир Александрович";
             password = "756498345";
 
-            SqlConnection connection = new SqlConnection("Data Source=RANNOCH; Initial Catalog=airport; Integrated Security=True");
+            SqlConnection connection = new SqlConnection("Data Source=.; Initial Catalog=airport; Integrated Security=True");
+
+
+            //SqlCommand getLogins = new SqlCommand
+            //SqlCommand getPassword = new SqlCommand
+            //{
+            //    Connection = connection,
+            //    CommandType = CommandType.Text,
+            //    //CommandText = @"USE airport; SELECT _login, _password, position FROM Logins"
+            //    CommandText = $"select _password from Logins where _login = '{username}'"
+            //};
+            string getPassword = $"select _password, position from Logins where _login = '{username}'";
 
             connection.Open();
 
-            SqlCommand getLogins = new SqlCommand
-            {
-                Connection = connection,
-                CommandType = CommandType.Text,
-                CommandText = @"USE airport; SELECT _login, _password, position FROM Logins"
-            };
+            SqlDataAdapter adapter = new SqlDataAdapter(getPassword, connection);
+            DataTable dt = new DataTable();
 
-            SqlDataReader reader = getLogins.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                if (reader[0].ToString() == username)
+                adapter.Fill(dt);
+                string pass = dt.Rows[0][0].ToString();
+
+                if (pass == password)
                 {
-                    if (reader[1].ToString() == password)
-                    {
-                        position = reader[2].ToString();
-                        break;
-                    }
-                    Console.WriteLine("Wrong password");
-                    break;
+                    position = dt.Rows[0][1].ToString();
                 }
-                Console.WriteLine("Wrong username");
             }
+            catch
+            {
+                // TOOD: Make a popup error
+                Console.WriteLine("something went wrong");
+                textBox_Name.Foreground = new SolidColorBrush(Colors.Red);
+                passwordBox.Foreground = new SolidColorBrush(Colors.Red);
+            }
+
+            //SqlDataReader reader = getLogins.ExecuteReader();
+            //while (reader.Read())
+            //{
+            //    if (reader[0].ToString() == username)
+            //    {
+            //        if (reader[1].ToString() == password)
+            //        {
+            //            position = reader[2].ToString();
+            //            break;
+            //        }
+            //        Console.WriteLine("Wrong password");
+            //        break;
+            //    }
+            //    Console.WriteLine("Wrong username");
+            //}
             connection.Close();
 
             var crewsWindow = new Window_Crews();
