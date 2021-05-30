@@ -38,7 +38,14 @@ namespace asdfg_v2
                 {
                     Connection = connection,
                     CommandType = CommandType.Text,
-                    CommandText = @"SELECT * FROM [Самолеты]"
+                    CommandText = @"
+                        SELECT dbo.Planes.plane_name AS Самолет, 
+                            dbo.Plane_types.plane_type_name AS Тип, 
+                            dbo.Employees.employee_name AS Механик, 
+                            dbo.Planes.last_repair AS [Последнее обслуживание]
+                        FROM dbo.Planes INNER JOIN
+                            dbo.Plane_types ON dbo.Planes.plane_type_ID = dbo.Plane_types.ID_type INNER JOIN
+                            dbo.Employees ON dbo.Planes.employee_ID = dbo.Employees.ID_employee"
                 };
 
                 connection.Open();
@@ -53,7 +60,6 @@ namespace asdfg_v2
                 while (reader.Read())
                 {
                     var date = reader.GetDateTime(3).ToString("dd/MM/yyyy");
-
                     mainTable.Rows.Add(reader.GetString(0), reader.GetString(1), reader.GetString(2), date);
                 }
 
@@ -73,26 +79,50 @@ namespace asdfg_v2
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {        
-            //foreach (DataRow row in mainTable.Rows)
-            //{
-            //    Console.WriteLine(row.ItemArray[0].ToString());
-            //}
+        {
+            DataTable planeDT = mainTable.Copy();
+            planeDT.Columns.RemoveAt(1);
+            planeDT.Columns.RemoveAt(1);
+
+            foreach (DataColumn column in planeDT.Columns)
+            {
+                Console.WriteLine("1: " + column.ColumnName);
+            }
+
+            DataTable empDT = mainTable.Copy();
+            empDT.Columns.RemoveAt(0);
+            empDT.Columns.RemoveAt(0);
+            empDT.Columns.RemoveAt(1);
+
+            DataTable planeTypesDT = mainTable.Copy();
+            planeTypesDT.Columns.RemoveAt(0);
+            planeTypesDT.Columns.RemoveAt(1);
+            planeTypesDT.Columns.RemoveAt(1);
 
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
-                // TODO: Do not use View or find another way to update the DB
-                // View or function 'Самолеты' is not updatable because the modification affects multiple base tables.
                 connection.Open();
                 try
                 {
-                    SqlBulkCopy bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.TableLock | SqlBulkCopyOptions.FireTriggers | SqlBulkCopyOptions.UseInternalTransaction, null);
-                    bulkCopy.DestinationTableName = "[Самолеты]";
-                    bulkCopy.WriteToServer(mainTable);
+                    SqlBulkCopy bulkCopyPlanes = new SqlBulkCopy(connection, SqlBulkCopyOptions.TableLock | SqlBulkCopyOptions.FireTriggers | SqlBulkCopyOptions.UseInternalTransaction, null);
+                    bulkCopyPlanes.DestinationTableName = "Planes";
+                    bulkCopyPlanes.ColumnMappings.Add(planeDT.Columns[0].ColumnName.ToString(), "plane_name");
+                    bulkCopyPlanes.ColumnMappings.Add(planeDT.Columns[1].ColumnName.ToString(), "last_repair");
+                    bulkCopyPlanes.WriteToServer(planeDT);
+
+                    SqlBulkCopy bulkCopyEmp = new SqlBulkCopy(connection, SqlBulkCopyOptions.TableLock | SqlBulkCopyOptions.FireTriggers | SqlBulkCopyOptions.UseInternalTransaction, null);
+                    bulkCopyEmp.DestinationTableName = "Employees";
+                    bulkCopyEmp.ColumnMappings.Add(empDT.Columns[0].ColumnName.ToString(), "employee_name");
+                    bulkCopyEmp.WriteToServer(empDT);
+
+                    SqlBulkCopy bulkCopyTypes = new SqlBulkCopy(connection, SqlBulkCopyOptions.TableLock | SqlBulkCopyOptions.FireTriggers | SqlBulkCopyOptions.UseInternalTransaction, null);
+                    bulkCopyTypes.DestinationTableName = "Plane_types";
+                    bulkCopyTypes.ColumnMappings.Add(planeTypesDT.Columns[0].ColumnName.ToString(), "plane_type_name");
+                    bulkCopyTypes.WriteToServer(planeTypesDT);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("[ERROR] Couldn't save changes to SQL DB");
+                    Console.WriteLine("[ERROR] Couldn't save changes to DB: " + ex);
                 }
 
                 connection.Close();
