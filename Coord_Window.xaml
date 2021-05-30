@@ -46,7 +46,8 @@
                 <DataGridTextColumn x:Name="priceColumn" Binding="{Binding price}" Header="Цена" MinWidth="5"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Выйти" HorizontalAlignment="Left" Margin="730,100,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Button_Click"/>
+        <Button Content="Выйти" HorizontalAlignment="Left" Margin="636,240,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Button_Click"/>
+        <Button x:Name="saveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="636,10,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Button_Click"/>
 
     </Grid>
 </Window>

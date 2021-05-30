@@ -19,6 +19,10 @@ namespace asdfg_v2
     /// </summary>
     public partial class Window_Crews : Window
     {
+        protected asdfg_v2.airportDataSet airportDataSet;
+        protected asdfg_v2.airportDataSetTableAdapters.View_CrewsTableAdapter airportDataSetView_CrewsTableAdapter;
+
+        protected asdfg_v2.airportDataSetTableAdapters.РейсыTableAdapter airportDataSetРейсыTableAdapter;
         public Window_Crews()
         {
             InitializeComponent();
@@ -26,14 +30,15 @@ namespace asdfg_v2
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            asdfg_v2.airportDataSet airportDataSet = ((asdfg_v2.airportDataSet)(this.FindResource("airportDataSet")));
+            airportDataSet = ((asdfg_v2.airportDataSet)(this.FindResource("airportDataSet")));
             // Load data into the table View_Crews. You can modify this code as needed.
-            asdfg_v2.airportDataSetTableAdapters.View_CrewsTableAdapter airportDataSetView_CrewsTableAdapter = new asdfg_v2.airportDataSetTableAdapters.View_CrewsTableAdapter();
+            airportDataSetView_CrewsTableAdapter = new asdfg_v2.airportDataSetTableAdapters.View_CrewsTableAdapter();
             airportDataSetView_CrewsTableAdapter.Fill(airportDataSet.View_Crews);
             System.Windows.Data.CollectionViewSource view_CrewsViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("view_CrewsViewSource")));
             view_CrewsViewSource.View.MoveCurrentToFirst();
+
             // Load data into the table Рейсы. You can modify this code as needed.
-            asdfg_v2.airportDataSetTableAdapters.РейсыTableAdapter airportDataSetРейсыTableAdapter = new asdfg_v2.airportDataSetTableAdapters.РейсыTableAdapter();
+            airportDataSetРейсыTableAdapter = new asdfg_v2.airportDataSetTableAdapters.РейсыTableAdapter();
             airportDataSetРейсыTableAdapter.Fill(airportDataSet.Рейсы);
             System.Windows.Data.CollectionViewSource рейсыViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("рейсыViewSource")));
             рейсыViewSource.View.MoveCurrentToFirst();
@@ -42,6 +47,12 @@ namespace asdfg_v2
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.airportDataSetView_CrewsTableAdapter.Adapter.Update(airportDataSet);
+            this.airportDataSetРейсыTableAdapter.Adapter.Update(airportDataSet);
         }
     }
 }
