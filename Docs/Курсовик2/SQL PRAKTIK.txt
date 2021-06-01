@@ -1,0 +1,196 @@
+--CREATE DATABASE School;
+USE School;
+
+CREATE TABLE Users (Userid INT PRIMARY KEY identity, Nick VARCHAR(50), Parol VARCHAR(50))
+INSERT INTO Users (Nick,Parol)
+values ('Admin', '12345');
+INSERT INTO Users (Nick,Parol)
+values ('Teachers', '54321');
+INSERT INTO Users (Nick,Parol)
+values ('Pupil', '777');
+
+CREATE TABLE Staff (Staf_id iNT PRIMARY KEY identity, 
+FIO VARCHAR(50), Age INT, Gender VARCHAR(50),Number VARCHAR(50), Passport VARCHAR(50), Id_position INT);
+INSERT INTO Staff(FIO, Age, Gender, Number, Passport, Id_position)
+values('Петрова И.К.', 30, 'Ж', '89115653811', '3475812925', 1);
+INSERT INTO Staff(FIO, Age, Gender, Number, Passport, Id_position)
+values('Романов В.И.', 45, 'М', 89558790123, '7864766575', 2);
+INSERT INTO Staff(FIO, Age, Gender, Number, Passport, Id_position)
+values('Борисова А.Д.', 36, 'Ж', '89217829315', '9157313434', 3);
+INSERT INTO Staff(FIO, Age, Gender, Number, Passport, Id_position)
+values('Гаврилова О.П.', 43, 'Ж', '89117859394', '7891654764', 4);
+INSERT INTO Staff(FIO, Age, Gender, Number, Passport, Id_position)
+values('Зубов А.И.', 44, 'М', '89557568586', '8628791134', 5);
+
+--SELECT * FROM Staff;
+
+CREATE TABLE Position (Position_id iNT PRIMARY KEY identity,
+Title VARCHAR(50), Oklad INT, Duty VARCHAR(50), Requirements VARCHAR(50));
+INSERT INTO Position(Title, Oklad, Duty, Requirements)
+values('Преподаватель', 5500, 'Учить', 'Высшее образование');
+INSERT INTO Position(Title, Oklad, Duty, Requirements)
+values('Преподаватель', 3500, 'Учить', 'Высшее образование');
+INSERT INTO Position(Title, Oklad, Duty, Requirements)
+values('Преподаватель', 5000, 'Учить', 'Высшее образование');
+INSERT INTO Position(Title, Oklad, Duty, Requirements)
+values('Бухгалтер', 5500, 'Оформление отчетностей', 'Высшее образование');
+INSERT INTO Position(Title, Oklad, Duty, Requirements)
+values('Уборщик', 2500, 'Убирать', 'Среднее общее образование');
+
+--SELECT * FROM Position;
+
+CREATE TABLE Students (Students_id iNT PRIMARY KEY identity,
+FIO VARCHAR(50), DateBirth DATE, Gender VARCHAR(50), Adress VARCHAR(50),
+FIO_Fa VARCHAR(50), FIO_Mo VARCHAR(50), Id_Class INT, DopInf VARCHAR(50));
+INSERT INTO Students(FIO, DateBirth, Gender, Adress, FIO_Fa, FIO_Mo, Id_Class)
+values ('Гришин А.Д.', '2005-05-05', 'М', 'Ул.Строителей Д.16 Кв.5', 'Гришин Д.К.', 'Маленкова И.Р.', 1 );
+INSERT INTO Students(FIO, DateBirth, Gender, Adress, FIO_Fa, FIO_Mo, Id_Class)
+values ('Ефименко Д.А.', '2007-10-15', 'М', 'Ул.Летчиков Д.5 Кв.15', 'Ефименко А.Д.', 'Ефименко А.Б.',2 );
+INSERT INTO Students(FIO, DateBirth, Gender, Adress, FIO_Fa, FIO_Mo, Id_Class)
+values ('Караулов И.Д.', '2007-07-25', 'М', 'Ул.Строителей Д.16 Кв.10', 'Караулов Д.Р.', 'Самойлова О.К.', 3 );
+INSERT INTO Students(FIO, DateBirth, Gender, Adress, FIO_Fa, FIO_Mo, Id_Class)
+values ('Иванова М.И.', '2006-02-25', 'Ж', 'Ул.Строителей Д.15 Кв.4', 'Иванов И.И.', 'Иванова А.В.', 4 );
+INSERT INTO Students(FIO, DateBirth, Gender, Adress, FIO_Fa, FIO_Mo, Id_Class)
+values ('Костоломова А.К.', '2005-04-08', 'Ж', 'Ул.Строителей Д.12 Кв.15', 'Костоломов К.В.', 'Костоломова А.П.', 5 );
+
+--SELECT * FROM Students;
+
+CREATE TABLE Class (Class_id iNT PRIMARY KEY identity,
+Id_ClassSort INT,Id_Staff INT, Id_Position INT, Amount INT, Letter VARCHAR(50), StudYear DATE, CreatYear DATE);
+INSERT INTO Class (Id_ClassSort, Id_Staff, Id_Position, Amount, Letter, StudYear, CreatYear)
+values (1,1,1,25, 'А', '2013-08-01', '2013-07-01');
+INSERT INTO Class (Id_ClassSort, Id_Staff, Id_Position, Amount, Letter, StudYear, CreatYear)
+values (2,2,2,226, 'Б', '2013-08-01', '2013-07-01');
+INSERT INTO Class (Id_ClassSort, Id_Staff, Id_Position, Amount, Letter, StudYear, CreatYear)
+values (3,1,1,25, 'А', '2015-08-01', '2015-07-01');
+INSERT INTO Class (Id_ClassSort, Id_Staff, Id_Position, Amount, Letter, StudYear, CreatYear)
+values (4,2,2,26, 'Б', '2015-08-01', '2015-07-01');
+INSERT INTO Class (Id_ClassSort, Id_Staff, Id_Position, Amount, Letter, StudYear, CreatYear)
+values (5,3,3,25, 'А', '2014-08-01', '2014-07-01');
+
+--SELECT * FROM Class;
+
+CREATE TABLE ClassSort (Sort_id iNT PRIMARY KEY identity,
+TitleS VARCHAR(50), OpisanieS VARCHAR(50), Id_class INT);
+INSERT INTO ClassSort (TitleS, OpisanieS,Id_class)
+values ('Технический','Обучение детей по технической направленности',1);
+INSERT INTO ClassSort (TitleS, OpisanieS,Id_class)
+values ('Гуманитарный','Обучение детей по гуманитарной направленности',2);
+INSERT INTO ClassSort (TitleS, OpisanieS,Id_class)
+values ('Технический','Обучение детей по технической направленности',1);
+INSERT INTO ClassSort (TitleS, OpisanieS,Id_class)
+values ('Технический','Обучение детей по технической направленности',2);
+INSERT INTO ClassSort (TitleS, OpisanieS,Id_class)
+values ('Специализированный','Обучение детей по спецеальной направленности',3);
+
+--SELECT * FROM ClassSort;
+
+CREATE TABLE Predmet (Predmet_id iNT PRIMARY KEY identity,
+TitleP VARCHAR(50), OpisanieP VARCHAR(50), Id_Staff INT);
+INSERT INTO Predmet(TitleP,OpisanieP,Id_Staff)
+values ('Математика', 'Технический предмет',1);
+INSERT INTO Predmet(TitleP,OpisanieP,Id_Staff)
+values ('Русский', 'Гуманитарный предмет',2);
+INSERT INTO Predmet(TitleP,OpisanieP,Id_Staff)
+values ('Литература', 'Гуманитарный предмет',2);
+INSERT INTO Predmet(TitleP,OpisanieP,Id_Staff)
+values ('Информатика', 'Технический предмет',3);
+INSERT INTO Predmet(TitleP,OpisanieP,Id_Staff)
+values ('Английский', 'Гуманитарный предмет',2);
+
+--SELECT * FROM Predmet;
+
+CREATE TABLE Raspisanie (DateRas DATE, DayWeek VARCHAR(50), Id_Class INT, Id_Predmet INT,
+TimeStart TIME, TimeEnd TIME);
+INSERT INTO Raspisanie(DateRas, DayWeek,Id_Class, Id_Predmet, TimeStart, TimeEnd)
+values ('2013-08-01','ПН',1,1,'09:30:00','13:30:00');
+INSERT INTO Raspisanie(DateRas, DayWeek,Id_Class, Id_Predmet, TimeStart, TimeEnd)
+values ('2013-08-01','ВТ',1,2,'09:30:00','13:30:00');
+INSERT INTO Raspisanie(DateRas, DayWeek,Id_Class, Id_Predmet, TimeStart, TimeEnd)
+values ('2015-08-01','ПН',2,4,'09:30:00','13:30:00');
+INSERT INTO Raspisanie(DateRas, DayWeek,Id_Class, Id_Predmet, TimeStart, TimeEnd)
+values ('2015-08-01','ВТ',2,5,'09:30:00','13:30:00');
+INSERT INTO Raspisanie(DateRas, DayWeek,Id_Class, Id_Predmet, TimeStart, TimeEnd)
+values ('2014-08-01','ПН',3,3,'09:30:00','13:30:00');
+
+--SELECT * FROM Raspisanie;
+
+ALTER TABLE Staff
+	ADD CONSTRAINT FK_Position FOREIGN KEY (Id_position)
+	REFERENCES Position(Position_id);
+
+ALTER TABLE Students
+	ADD CONSTRAINT FK_Class FOREIGN KEY (Id_Class)
+	REFERENCES Class(Class_id);
+
+ALTER TABLE Class
+	ADD CONSTRAINT FK_ClassSort FOREIGN KEY (Id_ClassSort)
+	REFERENCES ClassSort(Sort_id);
+ALTER TABLE Class
+	ADD CONSTRAINT FK_Staff FOREIGN KEY (Id_Staff)
+	REFERENCES Staff(Staf_id);
+
+ALTER TABLE Predmet
+	ADD CONSTRAINT FK_Staff2 FOREIGN KEY (Id_Staff)
+	REFERENCES Staff(Staf_id);
+
+ALTER TABLE Raspisanie
+	ADD CONSTRAINT FK_Class2 FOREIGN KEY (Id_class)
+	REFERENCES Class (Class_id);
+ALTER TABLE Raspisanie 
+	ADD CONSTRAINT FK_Predmet FOREIGN KEY (Id_Predmet)
+	REFERENCES Predmet (Predmet_id);
+
+--Запрос 1--
+
+SELECT FIO, Title FROM Staff
+INNER JOIN Position ON Id_position = Position_id
+
+--Запрос 2--
+SELECT FIO, Letter FROM Students
+INNER JOIN Class ON Id_Class = Class_id;
+
+--Запрос 3--
+SELECT  Letter, Amount, TitleS, FIO FROM Class
+INNER JOIN ClassSort ON Id_class = Class_id
+INNER JOIN Staff ON Id_Staff = Staf_id;
+
+--Запрос 4--
+SELECT  TitleP, FIO FROM Predmet
+INNER JOIN Staff ON Id_Staff = Staf_id;
+
+--Запрос 5--
+SELECT DayWeek, TitleP, Letter FROM Raspisanie
+INNER JOIN Class ON Id_class = Class_id
+INNER JOIN Predmet ON Id_Predmet = Predmet_id;
+
+--Фильтр 1--
+SELECT FIO, Title FROM Staff
+INNER JOIN Position ON Id_position = Position_id
+WHERE Title = 'Преподаватель';
+
+--Фильтр 2--
+SELECT Letter, Amount, StudYear FROM Class
+WHERE StudYear > '01-09-2013';
+
+--Фильтр 3--
+SELECT DayWeek, TitleP, Letter FROM Raspisanie
+INNER JOIN Class ON Id_class = Class_id
+INNER JOIN Predmet ON Id_Predmet = Predmet_id
+WHERE Letter = 'А' AND DayWeek = 'ПН';
+
+--Фильтр 4--
+SELECT  Letter, Amount, TitleS, FIO FROM Class
+INNER JOIN ClassSort ON Id_class = Class_id
+INNER JOIN Staff ON Id_Staff = Staf_id
+WHERE TitleS = 'Технический';
+
+--Фильтр 5--
+SELECT FIO, Letter FROM Students
+INNER JOIN Class ON Id_Class = Class_id
+WHERE Letter = 'Б';
+
+--Фильтр 6--
+SELECT  TitleP, FIO FROM Predmet
+INNER JOIN Staff ON Id_Staff = Staf_id
+WHERE FIO = 'Романов В.И.';
