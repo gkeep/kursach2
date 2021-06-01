@@ -5,23 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:asdfg_v2"
         mc:Ignorable="d"
-        Title="Команды" Height="600" Width="850" Loaded="Window_Loaded">
+        Title="Команды" Height="550" Width="850" Loaded="Window_Loaded">
     <Window.Resources>
         <local:airportDataSet x:Key="airportDataSet"/>
         <CollectionViewSource x:Key="view_CrewsViewSource" Source="{Binding View_Crews, Source={StaticResource airportDataSet}}"/>
         <CollectionViewSource x:Key="рейсыViewSource" Source="{Binding Рейсы, Source={StaticResource airportDataSet}}"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource view_CrewsViewSource}">
-        <DataGrid x:Name="view_CrewsDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="20,10" RowDetailsVisibilityMode="VisibleWhenSelected" Height="338" VerticalAlignment="Top" Width="625" HorizontalAlignment="Left" IsReadOnly="True">
-            <DataGrid.Columns>
-                <DataGridTextColumn x:Name="iD_crewColumn" Binding="{Binding ID_crew}" Header="Команда" MinWidth="5"/>
-                <DataGridTextColumn x:Name="employee_nameColumn" Binding="{Binding employee_name}" Header="Имя" MinWidth="20"/>
-                <DataGridTextColumn x:Name="position_nameColumn" Binding="{Binding position_name}" Header="Должность" MinWidth="20"/>
-                <DataGridTextColumn x:Name="place_fromColumn" Binding="{Binding place_from}" Header="Откуда" MinWidth="50"/>
-                <DataGridTextColumn x:Name="place_toColumn" Binding="{Binding place_to}" Header="Куда" MinWidth="50"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <DataGrid x:Name="рейсыDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource рейсыViewSource}}" Margin="20,359,0,10" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalAlignment="Left" Width="625" Height="200" IsReadOnly="True">
+        <DataGrid x:Name="рейсыDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource рейсыViewSource}}" Margin="20,291,0,28" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalAlignment="Left" Width="625" Height="200" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="командаColumn" Binding="{Binding Команда}" Header="Команда" MinWidth="50"/>
                 <DataGridTextColumn x:Name="откудаColumn" Binding="{Binding Откуда}" Header="Откуда" MinWidth="50"/>
@@ -37,8 +28,17 @@
                 <DataGridTextColumn x:Name="самолетColumn" Binding="{Binding Самолет}" Header="Самолет" MinWidth="50"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="ExitButton" Content="Выйти" Margin="666,80,26,0" Width="150" Height="50" VerticalAlignment="Top" Click="ExitButton_Click"/>
+        <Button x:Name="ExitButton" Content="Выйти" Margin="666,441,26,0" Width="150" Height="50" VerticalAlignment="Top" Click="ExitButton_Click"/>
         <Button Content="Сохранить" HorizontalAlignment="Left" Margin="666,10,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click" Height="50"/>
+        <DataGrid x:Name="view_CrewsDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="20,10,197,233" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="iD_crewColumn" Binding="{Binding ID_crew}" Header="Команда" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="employee_nameColumn" Binding="{Binding employee_name}" Header="Имя" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="position_nameColumn" Binding="{Binding position_name}" Header="Должность" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="place_fromColumn" Binding="{Binding place_from}" Header="Откуда" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="place_toColumn" Binding="{Binding place_to}" Header="Куда" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

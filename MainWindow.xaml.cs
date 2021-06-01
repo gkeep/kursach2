@@ -38,27 +38,14 @@ namespace asdfg_v2
             var password = passwordBox.Password;
             var position = "";
 
-            username = "Горячев Владимир Александрович";
-            password = "756498345";
-
             SqlConnection connection = new SqlConnection("Data Source=.; Initial Catalog=airport; Integrated Security=True");
 
-
-            //SqlCommand getLogins = new SqlCommand
-            //SqlCommand getPassword = new SqlCommand
-            //{
-            //    Connection = connection,
-            //    CommandType = CommandType.Text,
-            //    //CommandText = @"USE airport; SELECT _login, _password, position FROM Logins"
-            //    CommandText = $"select _password from Logins where _login = '{username}'"
-            //};
             string getPassword = $"select _password, position from Logins where _login = '{username}'";
-
-            connection.Open();
 
             SqlDataAdapter adapter = new SqlDataAdapter(getPassword, connection);
             DataTable dt = new DataTable();
 
+            connection.Open();
             try
             {
                 adapter.Fill(dt);
@@ -71,27 +58,10 @@ namespace asdfg_v2
             }
             catch
             {
-                // TOOD: Make a popup error
-                Console.WriteLine("something went wrong");
+                Console.WriteLine("Incorrect username or password");
                 textBox_Name.Foreground = new SolidColorBrush(Colors.Red);
                 passwordBox.Foreground = new SolidColorBrush(Colors.Red);
             }
-
-            //SqlDataReader reader = getLogins.ExecuteReader();
-            //while (reader.Read())
-            //{
-            //    if (reader[0].ToString() == username)
-            //    {
-            //        if (reader[1].ToString() == password)
-            //        {
-            //            position = reader[2].ToString();
-            //            break;
-            //        }
-            //        Console.WriteLine("Wrong password");
-            //        break;
-            //    }
-            //    Console.WriteLine("Wrong username");
-            //}
             connection.Close();
 
             var crewsWindow = new Window_Crews();

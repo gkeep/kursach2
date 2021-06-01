@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:asdfg_v2"
-        mc:Ignorable="d" Height="650" Width="1000" Loaded="Window_Loaded" Title="Координатор">
+        mc:Ignorable="d" Height="562" Width="948.984" Loaded="Window_Loaded" Title="Координатор">
     <Window.Resources>
         <local:airportDataSet x:Key="airportDataSet"/>
         <CollectionViewSource x:Key="экипажиViewSource" Source="{Binding Экипажи, Source={StaticResource airportDataSet}}"/>
@@ -13,15 +13,15 @@
         <CollectionViewSource x:Key="рейсыViewSource" Source="{Binding Рейсы, Source={StaticResource airportDataSet}}"/>
         <CollectionViewSource x:Key="ticketsViewSource" Source="{Binding Tickets, Source={StaticResource airportDataSet}}"/>
     </Window.Resources>
-    <Grid DataContext="{StaticResource экипажиViewSource}">
-        <DataGrid x:Name="экипажиDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,300,0,20" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" Height="300">
+    <Grid DataContext="{StaticResource экипажиViewSource}" Margin="0,0,0,-21" Height="552" VerticalAlignment="Top" HorizontalAlignment="Left" Width="979">
+        <DataGrid x:Name="экипажиDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="10,300,0,32" RowDetailsVisibilityMode="VisibleWhenSelected" HorizontalAlignment="Left" Width="400">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="имяColumn" Binding="{Binding Имя}" Header="Имя" MinWidth="5"/>
                 <DataGridTextColumn x:Name="должностьColumn" Binding="{Binding Должность}" Header="Должность" MinWidth="5"/>
                 <DataGridTextColumn x:Name="командаColumn" Binding="{Binding Команда}" Header="Команда" MinWidth="5"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="рейсыDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource рейсыViewSource}}" Margin="10,10,0,0" RowDetailsVisibilityMode="VisibleWhenSelected" Width="600" Height="280" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <DataGrid x:Name="рейсыDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource рейсыViewSource}}" Margin="10,10,0,0" RowDetailsVisibilityMode="VisibleWhenSelected" Width="750" Height="280" VerticalAlignment="Top" HorizontalAlignment="Left">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="командаColumn1" Binding="{Binding Команда}" Header="Команда" MinWidth="5"/>
                 <DataGridTextColumn x:Name="откудаColumn" Binding="{Binding Откуда}" Header="Откуда" MinWidth="5"/>
@@ -37,7 +37,7 @@
                 <DataGridTextColumn x:Name="самолетColumn" Binding="{Binding Самолет}" Header="Самолет" MinWidth="5"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid x:Name="ticketsDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource ticketsViewSource}}" Margin="415,300,70,20" RowDetailsVisibilityMode="VisibleWhenSelected" Width="500" Height="300">
+        <DataGrid x:Name="ticketsDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource ticketsViewSource}}" Margin="420,300,51,32" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="passenger_nameColumn" Binding="{Binding passenger_name}" Header="Имя" MinWidth="5"/>
                 <DataGridTextColumn x:Name="passport_dataColumn" Binding="{Binding passport_data}" Header="Паспортные данные" MinWidth="5"/>
@@ -46,8 +46,8 @@
                 <DataGridTextColumn x:Name="priceColumn" Binding="{Binding price}" Header="Цена" MinWidth="5"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Выйти" HorizontalAlignment="Left" Margin="636,240,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Button_Click"/>
-        <Button x:Name="saveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="636,10,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Button_Click"/>
+        <Button Content="Выйти" HorizontalAlignment="Left" Margin="778,240,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="Button_Click"/>
+        <Button x:Name="saveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="778,10,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="saveButton_Click"/>
 
     </Grid>
 </Window>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Инженер" Height="340" Width="960" Loaded="Window_Loaded">
     <Grid>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="250" Margin="20,30,0,29" Width="729"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="250" Margin="20,30,0,29" Width="749"/>
         <Button x:Name="ExitButton" Content="Выйти" HorizontalAlignment="Right" Margin="0,230,20,0" VerticalAlignment="Top" Width="150" Height="50" Click="ExitButton_Click"/>
         <Button x:Name="SaveButton" Content="Сохранить" HorizontalAlignment="Left" Margin="782,30,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="SaveButton_Click"/>
 

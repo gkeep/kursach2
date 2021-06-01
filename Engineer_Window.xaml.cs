@@ -84,11 +84,6 @@ namespace asdfg_v2
             planeDT.Columns.RemoveAt(1);
             planeDT.Columns.RemoveAt(1);
 
-            foreach (DataColumn column in planeDT.Columns)
-            {
-                Console.WriteLine("1: " + column.ColumnName);
-            }
-
             DataTable empDT = mainTable.Copy();
             empDT.Columns.RemoveAt(0);
             empDT.Columns.RemoveAt(0);
